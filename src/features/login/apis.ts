@@ -5,6 +5,13 @@ export interface ILoginParams {
   password: string;
 }
 
-export function fetchLogin(data: any) {
-  return post<ILoginParams>('/user/login', data);
+export interface ILoginReturnType {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export function fetchLogin(data: ILoginParams) {
+  return post<ILoginReturnType>('/user/login', {
+    data,
+  });
 }

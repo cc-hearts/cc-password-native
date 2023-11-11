@@ -1,4 +1,10 @@
-const BASE_URL = 'http://localhost:30001';
+import {isObject} from '@cc-heart/utils';
+import {requestGuard} from './request-guard';
+import {IBaseResponse} from '../typings/request';
+import {BASE_API_URL} from '../config';
+
+const BASE_URL = BASE_API_URL;
+
 async function request<T>(url: string, options?: RequestInit) {
   options = options || {};
   if (!options.method) {
@@ -15,11 +21,13 @@ async function request<T>(url: string, options?: RequestInit) {
     const ContentType = response.headers.get('content-type') || '';
 
     if (isResponseJson(ContentType)) {
-      return response.json() as T;
+      const recourse = (await response.json()) as IBaseResponse<T>;
+      return await requestGuard<T>(recourse);
     }
     return response.text() as T;
   } catch (e) {
     console.log(e);
+    return Promise.reject(e);
   }
 }
 
@@ -42,16 +50,27 @@ function isResponseJson(contentType: string): boolean {
 
 export default request;
 
-export function get<T>(url: string, options?: RequestInit) {
+interface IOptions extends RequestInit {
+  data?: any;
+}
+function formatOptions(options: IOptions = {}) {
+  const {data, ...rest} = options;
+  if (isObject(data)) {
+    rest.body = JSON.stringify(data);
+  }
+  return rest;
+}
+
+export function get<T>(url: string, options?: IOptions) {
   return request<T>(url, {
-    ...options,
+    ...formatOptions(options),
     method: 'GET',
   });
 }
 
-export function post<T>(url: string, options?: RequestInit) {
+export function post<T>(url: string, options?: IOptions) {
   return request<T>(url, {
-    ...options,
+    ...formatOptions(options),
     method: 'POST',
   });
 }

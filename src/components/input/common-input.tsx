@@ -1,7 +1,6 @@
-import {InputModeOptions, TextInput} from 'react-native';
 import {isUndef} from '@cc-heart/utils';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {KeyboardType, StyleSheet, TextInput} from 'react-native';
 
 const styles = StyleSheet.create({
   input: {
@@ -14,16 +13,20 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  type?: InputModeOptions;
+  type?: KeyboardType | 'password';
   placeholder?: string;
   value?: string;
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   onChange?: (val: string) => void;
 }
 
 function CommonInput(props: Props): JSX.Element {
-  const {type = 'text', placeholder} = props;
+  const {type = 'default', placeholder, autoCapitalize = 'none'} = props;
   const innerValue = React.useRef<string>('');
   const value = isUndef(props.value) ? innerValue.current : props.value;
+
+  const secureTextEntry = type === 'password';
+  const keyboardType = type === 'password' ? 'default' : type;
 
   const handleInputChange = (val: string) => {
     innerValue.current = val;
@@ -33,8 +36,10 @@ function CommonInput(props: Props): JSX.Element {
   return (
     <TextInput
       value={value}
-      inputMode={type}
+      keyboardType={keyboardType}
       style={styles.input}
+      secureTextEntry={secureTextEntry}
+      autoCapitalize={autoCapitalize}
       onChangeText={handleInputChange}
       placeholder={placeholder}
     />
