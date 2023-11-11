@@ -2,16 +2,28 @@ import {isObject} from '@cc-heart/utils';
 import {requestGuard} from './request-guard';
 import {IBaseResponse} from '../typings/request';
 import {BASE_API_URL} from '../config';
+import {getToken} from './storage';
 
 const BASE_URL = BASE_API_URL;
 
-async function request<T>(url: string, options?: RequestInit) {
+async function setAuthorization(options: RequestInit) {
+  const token = await getToken();
+  options.headers = options.headers || {};
+  Reflect.set(options.headers, 'Authorization', `Bearer ${token}`);
+}
+
+async function request<T>(
+  url: string,
+  options?: RequestInit,
+): Promise<T | undefined> {
   options = options || {};
   if (!options.method) {
     options.method = 'GET';
   }
 
   setDefaultContentType(options);
+
+  await setAuthorization(options);
 
   try {
     if (!url.startsWith('/')) {
@@ -22,11 +34,11 @@ async function request<T>(url: string, options?: RequestInit) {
 
     if (isResponseJson(ContentType)) {
       const recourse = (await response.json()) as IBaseResponse<T>;
-      return await requestGuard<T>(recourse);
+      return await requestGuard<T>(recourse, url, options);
     }
     return response.text() as T;
   } catch (e) {
-    console.log(e);
+    console.error('request error:', e);
     return Promise.reject(e);
   }
 }

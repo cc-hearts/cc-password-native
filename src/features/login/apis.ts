@@ -1,4 +1,4 @@
-import {post} from '../../utils/request';
+import {post, get} from '../../utils/request';
 
 export interface ILoginParams {
   username: string;
@@ -13,5 +13,24 @@ export interface ILoginReturnType {
 export function fetchLogin(data: ILoginParams) {
   return post<ILoginReturnType>('/user/login', {
     data,
+  });
+}
+
+export interface Profile {
+  uid: number;
+  name: string;
+  username: string;
+  plain: string;
+  iat: number;
+  exp: number;
+}
+
+export function getProfile() {
+  return get<Profile>('/user/userInfo');
+}
+
+export async function refreshTokenApi(refreshToken: string) {
+  return post<ILoginReturnType>('user/refresh', {
+    data: {refreshToken},
   });
 }

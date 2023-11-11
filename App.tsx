@@ -7,9 +7,9 @@
 
 import React from 'react';
 import {SafeAreaView, useColorScheme} from 'react-native';
-
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Login} from './src/pages/login';
+import {NativeRouter} from 'react-router-native';
+import {Routers} from './src/routers/routers';
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -19,7 +19,9 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <Login />
+      <NativeRouter>
+        <Routers />
+      </NativeRouter>
     </SafeAreaView>
   );
 }
