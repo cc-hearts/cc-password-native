@@ -1,0 +1,24 @@
+{
+  "verbose": false,
+  "debug": false,
+  "exec": "ts-node-esm ./app.ts",
+  "ignore": [
+    "node_modules",
+    "./test",
+    "**/*.d.ts",
+    "*.test.ts",
+    "*.spec.ts",
+    "fixtures/*",
+    "test/**/*",
+    "docs/*"
+  ],
+  "events": {
+    "restart": ""
+  },
+  "watch": [
+    "./src/**/*.ts",
+    "./app.ts"
+  ],
+  "ext": "ts tsx",
+  "inspect": true
+}
