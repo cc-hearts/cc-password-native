@@ -1,7 +1,7 @@
 {
   "verbose": false,
   "debug": false,
-  "exec": "ts-node-esm ./app.ts",
+  "exec": "node --loader ts-node/esm ./app.ts",
   "ignore": [
     "node_modules",
     "./test",
@@ -15,10 +15,7 @@
   "events": {
     "restart": ""
   },
-  "watch": [
-    "./src/**/*.ts",
-    "./app.ts"
-  ],
-  "ext": "ts tsx",
+  "watch": ["./**/*.ts"],
+  "ext": "ts,tsx",
   "inspect": true
 }

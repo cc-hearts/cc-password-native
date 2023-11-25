@@ -1,5 +1,10 @@
-import express from 'express';
+import express, {type Express} from 'express';
+import {loadModule} from './utils/load-module.js';
 
-const app = express();
-
-app.listen('3000');
+(async () => {
+  const app: Express = express();
+  await loadModule(app);
+  app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
+})();

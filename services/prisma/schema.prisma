@@ -1,0 +1,62 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum USER_STATUS {
+  DISABLED
+  ENABLED
+}
+
+model user {
+  id         Int       @id @default(autoincrement())
+  name       String?   @default("")
+  username   String    @unique
+  password   String
+  mobile     String?   @unique @map("mobile")
+  email      String?
+  status     Int?      @default(1)
+  createTime DateTime? @default(now()) @map("createTime")
+  updateTime DateTime? @updatedAt @map("updateTime")
+
+  @@unique([mobile, username])
+}
+
+model Security {
+  id        Int      @id @default(autoincrement())
+  uid       Int      @map("uid")
+  security  String
+  iv        String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("security")
+}
+
+model Password {
+  id          Int     @id @default(autoincrement())
+  uid         Int     @map("uid")
+  cid         Int     @map("cid")
+  password    String
+  username    String
+  url         String? @default("")
+  title       String? @default("")
+  description String? @default("")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("password")
+}
+
+model PasswordCategory {
+  id       Int    @id @default(autoincrement())
+  category String
+  uid      Int    @map("uid")
+
+  @@unique([uid, category], name: "unique_uid_category")
+  @@map(name: "password_category")
+}
