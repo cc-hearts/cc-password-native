@@ -10,17 +10,21 @@ router.post('/auth', async (req, res) => {
     req,
     res,
   );
-  const {username, password} = useBody({});
+  const {username, password} = useBody<{username: string; password: string}>(
+    {},
+  );
   if (!username || !password) {
-    useThrowServiceError('用户名或密码不能为空');
+    useThrowServiceError('The username or password cannot be empty');
     return;
   }
-  const user = await findUser(username);
+  const user = await findUser({username});
   // if user not exist
   if (!user) {
-    useThrowServiceError('用不不存在');
+    useThrowServiceError('The user does not exist');
     return;
   }
   await userLogin({username, password});
-  useSuccessResponse('成功');
+  useSuccessResponse('The login verification is successful');
 });
+
+// TODO: 异常的注册

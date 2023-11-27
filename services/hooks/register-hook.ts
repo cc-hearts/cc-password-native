@@ -1,10 +1,11 @@
 import type {fn} from '@cc-heart/utils/helper';
 import type {Request, Response} from 'express';
+import {RegisterHookFactory} from './register';
 
-export const hookMap = new Map<PropertyKey, fn>();
+export const hookMap = new Map<keyof RegisterHookFactory, fn>();
 
 export function registerHook(
-  name: string,
+  name: keyof RegisterHookFactory,
   fn: (req: Request, res: Response, ...rest: any[]) => any,
 ) {
   hookMap.set(name, fn);
