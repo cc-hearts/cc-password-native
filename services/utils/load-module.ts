@@ -1,10 +1,11 @@
 // import {readdir} from 'fs/promises';
 // import {resolve} from 'path';
 
-import type {Express} from 'express';
-import {UserSetup} from '../modules/user.module.js';
-export async function loadModule(app: Express) {
-  [UserSetup].forEach(setup => {
+import type { Express } from 'express';
+import { UserSetup } from '../modules/user.module.js';
+import { PasswordSetup } from '../modules/password.module.js'
+export function loadModule(app: Express) {
+  [UserSetup, PasswordSetup].forEach(setup => {
     setup(app);
   });
 }

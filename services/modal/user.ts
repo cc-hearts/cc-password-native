@@ -25,6 +25,8 @@ export async function userLogin<T extends UserLogin>(params: T) {
   const userModal = getInstance('user');
   const user = await userModal.findFirst({
     select: {
+      id: true,
+      name: true,
       username: true,
       password: true,
     },
@@ -34,4 +36,9 @@ export async function userLogin<T extends UserLogin>(params: T) {
     },
   });
   return user;
+}
+
+export async function getProfile(id: number) {
+  // await getToken
+  console.log(id);
 }

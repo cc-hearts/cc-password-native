@@ -2,7 +2,9 @@ import {isFn, isStr, isUndef} from '@cc-heart/utils';
 import type {Request, Response} from 'express';
 import {hookMap} from './register-hook.js';
 import type {RegisterHookFactory} from './register.js';
-export function useHookFactory<T extends RegisterHookFactory>(
+export function useHookFactory<
+  T extends RegisterHookFactory = RegisterHookFactory,
+>(
   req: Request,
   res: Response,
   hookName?: keyof RegisterHookFactory | Array<keyof RegisterHookFactory>,

@@ -11,7 +11,7 @@ export interface ILoginReturnType {
 }
 
 export function fetchLogin(data: ILoginParams) {
-  return post<ILoginReturnType>('/user/login', {
+  return post<ILoginReturnType>('/user/auth', {
     data,
   });
 }
@@ -26,7 +26,7 @@ export interface Profile {
 }
 
 export function getProfile() {
-  return get<Profile>('/user/userInfo');
+  return get<Profile>('/user/profile');
 }
 
 export async function refreshTokenApi(refreshToken: string) {

@@ -1,30 +1,53 @@
-import {createRouterFactory} from '../utils/create-router.js';
-import {useHookFactory} from '../hooks/use-hook-factory.js';
-import {findUser, userLogin} from '../modal/user.js';
+import { profileKey } from '../config/index.js';
+import { useHookFactory } from '../hooks/use-hook-factory.js';
+import { setWhiteRouter } from '../middleware/auth-guard.js';
+import { findUser, userLogin } from '../modal/user.js';
+import { createErrorHandler } from '../utils/create-error-handler.js';
+import { createRouterFactory } from '../utils/create-router.js';
+import { genSignaturesToken } from '../utils/jwt-auth.js';
+const { router, setup } = createRouterFactory('/user');
+export { setup as UserSetup };
 
-const {router, setup} = createRouterFactory('/user');
-export {setup as UserSetup};
+router.post(
+  '/auth',
+  createErrorHandler(async (req, res) => {
+    const { useBody, useSuccessResponse } = useHookFactory(req, res);
 
-router.post('/auth', async (req, res) => {
-  const {useBody, useThrowServiceError, useSuccessResponse} = useHookFactory(
-    req,
-    res,
-  );
-  const {username, password} = useBody<{username: string; password: string}>(
-    {},
-  );
-  if (!username || !password) {
-    useThrowServiceError('The username or password cannot be empty');
-    return;
-  }
-  const user = await findUser({username});
-  // if user not exist
-  if (!user) {
-    useThrowServiceError('The user does not exist');
-    return;
-  }
-  await userLogin({username, password});
-  useSuccessResponse('The login verification is successful');
-});
+    const { username, password } = useBody<{ username: string; password: string }>(
+      {},
+    );
 
-// TODO: 异常的注册
+    if (!username || !password) {
+      throw new Error('The username or password cannot be empty');
+    }
+
+    const user = await findUser({ username });
+    // if user not exist
+    if (!user) {
+      throw new Error('The user does not exist');
+    }
+
+    const profile = await userLogin({ username, password });
+    if (!profile) {
+      throw new Error('The password verification is failed');
+    }
+    const sign = await genSignaturesToken({
+      ...profile,
+      name: profile.name || '',
+    });
+    useSuccessResponse('The login verification is successful', sign);
+  }),
+);
+
+router.get(
+  '/profile',
+  createErrorHandler(async (req, res) => {
+    const { useSuccessResponse } = useHookFactory(req, res)
+    useSuccessResponse('get profile success', Reflect.get(req, profileKey));
+  }),
+);
+// TODO: refresh
+
+['/user/auth'].forEach(path => {
+  setWhiteRouter(path)
+})
