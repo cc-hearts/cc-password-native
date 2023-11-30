@@ -2,6 +2,8 @@ import './use-body.js';
 import './use-success-response.js';
 import './use-throw-service-error.js';
 import './use-forbidden.js';
+import './use-profile.js'
+
 import type { Profile } from '../types/base'
 
 export interface RegisterHookFactory {

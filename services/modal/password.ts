@@ -6,11 +6,9 @@ export async function findPasswordList<T extends Pagination & { uid: number }>(
   params: T,
   title?: string,
 ) {
-  const { page, size, uid } = params;
+  const { page = 1, size = 10, uid } = params;
   const { take, skip } = transformPagination({ page, size });
-
   const passwordIns = getInstance('password')
-
   const where = {
     uid
   }
@@ -19,6 +17,6 @@ export async function findPasswordList<T extends Pagination & { uid: number }>(
   }
   return await Promise.all([
     passwordIns.count({ where }),
-    passwordIns.findMany({ where, take, skip, orderBy: { createdAt: 'desc' } })
+    passwordIns.findMany({ where, take, skip, orderBy: [{ createdAt: 'desc' }, { id: 'desc' }] })
   ])
 }

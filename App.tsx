@@ -15,6 +15,7 @@ function App(): JSX.Element {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    // color: isDarkMode ? Colors.lighter : Colors.darker,
   };
 
   return (

@@ -14,11 +14,10 @@ import {loadModule} from './utils/load-module.js';
   app.use(
     (
       err: Error,
-      req: express.Request,
+      _req: express.Request,
       res: express.Response,
       next: express.NextFunction,
     ) => {
-      console.log(req);
       console.error(err);
       res.status(500).json({
         message: err.message,

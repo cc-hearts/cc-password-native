@@ -9,7 +9,7 @@ export { setup as PasswordSetup };
 
 
 
-router.post('findPasswordList', createErrorHandler(async function (req, res) {
+router.post('/findPasswordList', createErrorHandler(async function (req, res) {
   const { useProfile, useBody, useSuccessResponse } = useHookFactory(req, res)
   const { uid } = useProfile()
   const body = useBody({ page: 1, size: 10 })
