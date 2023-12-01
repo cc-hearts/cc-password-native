@@ -5,6 +5,7 @@ import { findUser, userLogin } from '../modal/user.js';
 import { createErrorHandler } from '../utils/create-error-handler.js';
 import { createRouterFactory } from '../utils/create-router.js';
 import { genSignaturesToken } from '../utils/jwt-auth.js';
+
 const { router, setup } = createRouterFactory('/user');
 export { setup as UserSetup };
 

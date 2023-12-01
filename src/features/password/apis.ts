@@ -6,3 +6,9 @@ export function findPasswordList<T extends Pagination>(data: T) {
     data,
   });
 }
+
+export function findPassword(id: number) {
+  return post<any>('password/findPassword', {
+    data: {id},
+  });
+}

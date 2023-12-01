@@ -9,8 +9,8 @@ export function Routers() {
   return (
     <React.Suspense fallback={<Text>Loading...</Text>}>
       <Routes>
+        <Route path="/login" element={<LoginLazy />} />
         <Route path="/" element={<Provider />}>
-          <Route path="/login" element={<LoginLazy />} />
           <Route path="/password" element={<PasswordLazy />} />
         </Route>
       </Routes>

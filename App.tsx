@@ -6,6 +6,7 @@
  */
 
 import React from 'react';
+import 'react-native-get-random-values';
 import {SafeAreaView, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NativeRouter} from 'react-router-native';

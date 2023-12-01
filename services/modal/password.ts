@@ -20,3 +20,9 @@ export async function findPasswordList<T extends Pagination & { uid: number }>(
     passwordIns.findMany({ where, take, skip, orderBy: [{ createdAt: 'desc' }, { id: 'desc' }] })
   ])
 }
+
+
+export function findPassword(id: number, uid: number) {
+  const passwordIns = getInstance('password')
+  return passwordIns.findFirst({ where: { id, uid } })
+}

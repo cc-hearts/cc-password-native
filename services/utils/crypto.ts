@@ -14,6 +14,7 @@ export function encodeMd5(str: string) {
 
 // aes 加密
 export function encodeAes(plainText: string) {
+  // TODO
   const {aes_key, aes_iv} = getConfig();
   // 创建加密器
   const cipher = createCipheriv(
@@ -26,8 +27,8 @@ export function encodeAes(plainText: string) {
   encrypted += cipher.final('hex');
   return encrypted;
 }
-export function decodeAes(encrypted: string) {
-  const {aes_key, aes_iv} = getConfig();
+
+export function decodeAes(encrypted: string, aes_key: string, aes_iv: string) {
   const decipher = createDecipheriv(
     'aes-256-cbc',
     strParseBuffer(aes_key),
