@@ -29,6 +29,10 @@ async function request<T>(
     if (!url.startsWith('/')) {
       url = `/${url}`;
     }
+    if (__DEV__) {
+      console.log('request url:', url);
+      console.log('request options:', options);
+    }
     const response = await fetch(`${BASE_URL}${url}`, options);
     const ContentType = response.headers.get('content-type') || '';
 

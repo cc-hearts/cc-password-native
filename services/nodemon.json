@@ -1,0 +1,21 @@
+{
+  "verbose": false,
+  "debug": false,
+  "exec": "node --loader ts-node/esm ./app.ts",
+  "ignore": [
+    "node_modules",
+    "./test",
+    "**/*.d.ts",
+    "*.test.ts",
+    "*.spec.ts",
+    "fixtures/*",
+    "test/**/*",
+    "docs/*"
+  ],
+  "events": {
+    "restart": ""
+  },
+  "watch": ["./**/*.ts"],
+  "ext": "ts,tsx",
+  "inspect": true
+}

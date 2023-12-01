@@ -11,6 +11,7 @@ export function getRefreshToken() {
 export function removeRefreshToken() {
   return AsyncStorage.removeItem('refreshToken');
 }
+
 export function setToken(data: string) {
   AsyncStorage.setItem('token', data);
 }

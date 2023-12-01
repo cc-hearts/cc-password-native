@@ -5,3 +5,8 @@ export interface IBaseResponse<T = any> {
   path?: string;
   timestamp?: string;
 }
+
+export interface Pagination {
+  page: number;
+  size: number;
+}
