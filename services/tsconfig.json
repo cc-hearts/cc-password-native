@@ -5,12 +5,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noEmit": true,
-    /* Linting */
     "strict": true,
     "allowJs": true,
     "noUnusedLocals": true,

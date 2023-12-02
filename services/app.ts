@@ -1,7 +1,8 @@
-import express, {type Express} from 'express';
+import express, { type Express } from 'express';
 import './hooks/register.js';
-import {afterLoadMiddle, loadMiddle} from './middleware/index.js';
-import {loadModule} from './utils/load-module.js';
+import { afterLoadMiddle, loadMiddle } from './middleware/index.js';
+import { loadModule } from './utils/load-module.js';
+import { getConfig } from './utils/config.js';
 (async () => {
   const app: Express = express();
 
@@ -26,7 +27,9 @@ import {loadModule} from './utils/load-module.js';
     },
   );
 
-  app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+  let { port } = getConfig()
+  port = port || 3000
+  app.listen(port, () => {
+    console.log('Server is running on port ', port);
   });
 })();
