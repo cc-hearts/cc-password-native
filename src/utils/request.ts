@@ -30,7 +30,7 @@ async function request<T>(
       url = `/${url}`;
     }
     if (__DEV__) {
-      console.log('request url:', url);
+      console.log('request url:', `${BASE_URL}${url}`);
       console.log('request options:', options);
     }
     const response = await fetch(`${BASE_URL}${url}`, options);
