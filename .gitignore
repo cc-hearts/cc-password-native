@@ -68,3 +68,5 @@ yarn-error.log
 app.development.yaml
 .env
 dist/
+.expo
+yarn.lock
