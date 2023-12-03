@@ -1,9 +1,9 @@
-import {PrismaClient} from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 let prisma: PrismaClient | null = null;
 
 type ModalName<T = keyof PrismaClient> = T extends T
-  ? // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ?
     T extends `$${infer _r}`
     ? never
     : T
@@ -17,7 +17,7 @@ export function getInstance<T extends ModalName>(
   return prisma[modalName];
 }
 
-export function distoryPrismaInstance() {
+export function destroyPrismaInstance() {
   if (prisma) {
     prisma.$disconnect();
     prisma = null;

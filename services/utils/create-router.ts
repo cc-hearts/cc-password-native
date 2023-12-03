@@ -1,4 +1,4 @@
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 export function createRouterFactory(prefix: string = '/') {
   const router = express.Router();
 

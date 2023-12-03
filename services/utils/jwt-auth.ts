@@ -1,7 +1,7 @@
-import {randomUUID} from 'crypto';
-import {encodeAes} from './crypto.js';
-import {getConfig} from './config.js';
+import { randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
+import { getConfig } from './config.js';
+import { encodeAes } from './crypto.js';
 
 export async function genSignaturesToken(data: {
   id: number;

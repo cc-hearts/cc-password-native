@@ -1,6 +1,6 @@
-import { getInstance } from './init.js';
 import type { Pagination } from '../types/base';
 import { transformPagination } from '../utils/transform-pagination.js';
+import { getInstance } from './init.js';
 
 export async function findPasswordList<T extends Pagination & { uid: number }>(
   params: T,

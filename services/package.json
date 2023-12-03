@@ -20,7 +20,7 @@
   "homepage": "",
   "scripts": {
     "dev": "npx nodemon",
-    "build": "rollup --no-preserve-symlinks -c",
+    "build": "rollup -c",
     "build:start": "npx prisma generate && node app.js"
   },
   "dependencies": {

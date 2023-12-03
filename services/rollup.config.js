@@ -1,9 +1,9 @@
-import { resolve as _resolve } from "path"
-import typescript from '@rollup/plugin-typescript'
-import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import rollupJson from '@rollup/plugin-json'
-import copy from 'rollup-plugin-copy';
+import nodeResolve from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
+import { resolve as _resolve } from "path"
+import copy from 'rollup-plugin-copy'
 
 const resolve = (...args) => _resolve(process.cwd(), ...args)
 

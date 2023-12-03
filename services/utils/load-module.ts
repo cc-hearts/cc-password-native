@@ -1,14 +1,6 @@
 // import {readdir} from 'fs/promises';
 // import {resolve} from 'path';
 
-import type { Express } from 'express';
-import { UserSetup } from '../modules/user.module.js';
-import { PasswordSetup } from '../modules/password.module.js'
-export function loadModule(app: Express) {
-  [UserSetup, PasswordSetup].forEach(setup => {
-    setup(app);
-  });
-}
 
 // // 递归获取module的路径
 // export async function traverseModulePath(path: string): Promise<string[]> {

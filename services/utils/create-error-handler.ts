@@ -1,4 +1,4 @@
-import type {NextFunction, Request, Response} from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 type fn = (req: Request, res: Response, next: NextFunction) => void;
 export function createErrorHandler(fn: fn) {

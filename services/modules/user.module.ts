@@ -13,7 +13,6 @@ router.post(
   '/auth',
   createErrorHandler(async (req, res) => {
     const { useBody, useSuccessResponse } = useHookFactory(req, res);
-
     const { username, password } = useBody<{ username: string; password: string }>(
       {},
     );

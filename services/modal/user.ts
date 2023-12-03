@@ -1,4 +1,4 @@
-import {getInstance} from './init.js';
+import { getInstance } from './init.js';
 
 interface UserLogin {
   username: string;

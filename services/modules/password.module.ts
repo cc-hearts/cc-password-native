@@ -1,10 +1,10 @@
+import CryptoJS from 'crypto-js';
 import { useHookFactory } from '../hooks/use-hook-factory.js';
 import { findPassword, findPasswordList } from '../modal/password.js';
 import { findSecurity } from '../modal/security.js';
 import { createErrorHandler } from '../utils/create-error-handler.js';
 import { createRouterFactory } from '../utils/create-router.js';
 import { decodeAes } from '../utils/crypto.js';
-import CryptoJS from 'crypto-js'
 
 const { router, setup } = createRouterFactory('/password');
 export { setup as PasswordSetup };
@@ -13,7 +13,7 @@ export { setup as PasswordSetup };
 
 router.post('/findPasswordList', createErrorHandler(async function (req, res) {
   const { useProfile, useBody, useSuccessResponse } = useHookFactory(req, res)
-  const { uid } = useProfile()
+  const [{ uid }] = useProfile()
   const body = useBody({ page: 1, size: 10 })
   const response = await findPasswordList({ ...body, uid })
 
@@ -23,7 +23,7 @@ router.post('/findPasswordList', createErrorHandler(async function (req, res) {
 
 router.post('/findPassword', createErrorHandler(async function (req, res) {
   const { useProfile, useBody, useSuccessResponse } = useHookFactory(req, res)
-  const { uid, plain } = useProfile()
+  const [{ uid, plain }] = useProfile()
   const { id } = useBody({ id: -1 })
   if (id === -1) {
     throw new Error('The id cannot be empty')

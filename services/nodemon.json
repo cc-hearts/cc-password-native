@@ -1,7 +1,7 @@
 {
   "verbose": false,
   "debug": false,
-  "exec": "node --loader ts-node/esm ./app.ts",
+  "exec": "node --loader ts-node/esm --experimental-specifier-resolution=node ./app.ts",
   "ignore": [
     "node_modules",
     "./test",

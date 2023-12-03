@@ -1,12 +1,11 @@
-import {fn} from '@cc-heart/utils/helper.js';
-import type {Express, Request, Response} from 'express';
-import {useHookFactory} from '../hooks/use-hook-factory.js';
+import { fn } from '@cc-heart/utils/helper.js';
+import type { Express, Request, Response } from 'express';
+import { useHookFactory } from '../hooks/use-hook-factory.js';
 
 function errorCatch(err: Error, req: Request, res: Response, next: fn) {
   const {useThrowServiceError} = useHookFactory(req, res);
-  console.error(err);
+  console.error('[error catch]:',err);
   useThrowServiceError(err?.toString());
-
   next();
 }
 

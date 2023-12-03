@@ -1,8 +1,8 @@
-import type { Express, Request, Response, NextFunction } from 'express';
+import type { Express, NextFunction, Request, Response } from 'express';
 import { useHookFactory } from '../hooks/use-hook-factory.js';
-import { profileKey } from '../config/index.js'
-import { verifyToken } from '../utils/jwt-auth.js';
+import type { Profile } from '../types/base';
 import { createErrorHandler } from '../utils/create-error-handler.js';
+import { verifyToken } from '../utils/jwt-auth.js';
 
 const whiteRouter: string[] = [];
 export function setWhiteRouter(path: string) {
@@ -13,8 +13,11 @@ export function isIncludeRouterOfWhiteRouter(path: string) {
   return whiteRouter.includes(path);
 }
 const useAuthGuard = createErrorHandler(async function (req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.split('Bearer ')[1];
-  const { useForbidden } = useHookFactory(req, res);
+  const { useForbidden, useHeader,useProfile } = useHookFactory(req, res);
+
+  const [, setProfile] = useProfile()
+  const [authorization] = useHeader('authorization')
+  const token = authorization?.split('Bearer ')[1]
   if (!token && !isIncludeRouterOfWhiteRouter(req.path)) {
     useForbidden('token is empty');
     return
@@ -22,14 +25,14 @@ const useAuthGuard = createErrorHandler(async function (req: Request, res: Respo
 
   if (token) {
     try {
-      const profile = await verifyToken(token)
-      Reflect.set(req, profileKey, profile)
+      const profile = await verifyToken(token) as Profile
+      setProfile(profile)
     } catch (e) {
       if (isIncludeRouterOfWhiteRouter(req.path)) {
         next()
         return
       }
-      console.error(e);
+      console.error('[token verify failed]',e);
       useForbidden(e?.toString() || '')
       return
     }

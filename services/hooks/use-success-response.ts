@@ -1,5 +1,6 @@
-import {registerHook} from './register-hook.js';
-import type {Request, Response} from 'express';
+import { getCurrentTimeISOString } from '@cc-heart/utils';
+import type { Request, Response } from 'express';
+import { registerHook } from './register-hook.js';
 
 registerHook(
   'useSuccessResponse',
@@ -7,6 +8,7 @@ registerHook(
     res.json({
       code: 200,
       message,
+      timestamp: getCurrentTimeISOString(),
       data,
     });
   },

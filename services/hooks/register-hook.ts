@@ -1,6 +1,6 @@
-import type {fn} from '@cc-heart/utils/helper';
-import type {Request, Response} from 'express';
-import {RegisterHookFactory} from './register';
+import type { fn } from '@cc-heart/utils/helper';
+import type { Request, Response } from 'express';
+import type { RegisterHookFactory } from '.';
 
 export const hookMap = new Map<keyof RegisterHookFactory, fn>();
 

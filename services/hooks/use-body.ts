@@ -1,18 +1,18 @@
-// register useBody
 import type {Request, Response} from 'express';
 import {registerHook} from './register-hook.js';
 import {isObject} from '@cc-heart/utils';
 
-registerHook('useBody', <T>(req: Request, _res: Response, initalVal: T) => {
+registerHook('useBody', <T>(req: Request, _res: Response, initialValue: T) => {
   const body = req.body;
-  if (!body && initalVal) {
-    return initalVal;
+  if (!body && initialValue) {
+    return initialValue;
   }
+
   if (req.get('Content-Type') === 'application/json') {
-    if (isObject(initalVal) && isObject(body)) {
-      return Object.assign(initalVal, body);
+    if (isObject(initialValue) && isObject(body)) {
+      return Object.assign(initialValue, body);
     }
-    return body || initalVal;
+    return body || initialValue;
   }
 
   return body;
