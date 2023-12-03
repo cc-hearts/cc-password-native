@@ -7,6 +7,7 @@ export interface Pagination {
 export interface Profile {
   uid: number
   name: string
+  username: string
   id: number
   plain: string
 }
